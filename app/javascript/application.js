@@ -1,6 +1,6 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 
-const main = document.querySelector("main");
+const productGrid = document.querySelector("#product-grid");
 const loginBtn = document.querySelector("#login-btn");
 let loggedIn = false;
 
@@ -10,9 +10,10 @@ function createProduct(product) {
         <img src=${product.img_url}/>
         <div class="extra-info">
             <h3>${product.name}</h3>
+            <p>${product.description}</p>
         </div>
     </div>`
-    main.innerHTML += productHtml;
+    productGrid.innerHTML += productHtml;
 }
 
 fetch("/products").then(res => res.json()).then(products => {
