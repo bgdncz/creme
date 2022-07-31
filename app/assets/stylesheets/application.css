@@ -57,17 +57,29 @@ header {
     gap: 10px;
 }
 
-#product-overlay .open {
+#product-overlay {
     background: white;
-
+    overflow: hidden;
     width: 500px;
-    height: 500px;
+    height: 0px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 30px;
     box-shadow: 0 0px 20px gray;
+    transition: height 0.2s ease-out;
+}
+
+#product-overlay img {
+    display: block;
+    height: 40%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.open {
+    height: 500px !important;
 }
 
 .product {
@@ -89,7 +101,8 @@ header {
 }
 
 .product img {
-    height: 300px;
+    height: 250px;
+    padding: 25px;
 }
 
 .extra-info {
@@ -107,3 +120,30 @@ header {
 .product:hover .extra-info {
     height: 150px;
 }
+
+.close {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    cursor: pointer;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }

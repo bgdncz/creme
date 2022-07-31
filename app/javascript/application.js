@@ -2,18 +2,23 @@
 
 const productGrid = document.querySelector("#product-grid");
 const loginBtn = document.querySelector("#login-btn");
+const productOverlay = document.querySelector("#product-overlay");
+const closeBtn = document.querySelector(".close");
 let loggedIn = false;
 
 function createProduct(product) {
-    const productHtml = `
-    <div class="product">
+    const productDiv = document.createElement("div");
+    productDiv.className = "product";
+    productDiv.dataset.productId = product.id;
+    productDiv.innerHTML = `
         <img src=${product.img_url}/>
         <div class="extra-info">
             <h3>${product.name}</h3>
             <p>${product.description}</p>
         </div>
-    </div>`
-    productGrid.innerHTML += productHtml;
+    `
+    productDiv.addEventListener("click", showProduct);
+    productGrid.appendChild(productDiv);
 }
 
 fetch("/products").then(res => res.json()).then(products => {
@@ -31,4 +36,19 @@ function handleLogin(clickEvent) {
     loggedIn = !loggedIn;
 }
 
+function showProduct(clickEvent) {
+    const productId = this.dataset.productId;
+        fetch(`/products/${productId}`).then(res => res.json()).then(product => {
+            productOverlay.className = "open";
+            productOverlay.children[1].src = product.img_url;
+            productOverlay.children[2].textContent = product.name;
+            productOverlay.children[3].textContent = product.description;
+        });
+}
+
+function closeOverlay() {
+    productOverlay.className = "";
+}
+
 loginBtn.addEventListener("click", handleLogin);
+closeBtn.addEventListener("click", closeOverlay);
