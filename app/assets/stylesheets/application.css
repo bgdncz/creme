@@ -78,6 +78,11 @@ header {
     margin-top: 20px;
 }
 
+#product-overlay > * {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .open {
     height: 500px !important;
 }

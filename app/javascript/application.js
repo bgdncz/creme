@@ -29,11 +29,11 @@ fetch("/products").then(res => res.json()).then(products => {
 
 function handleLogin(clickEvent) {
     if (loggedIn == false) {
-        loginBtn.textContent = "Log out";
+        loginBtn.textContent = "Add";
+        loggedIn = true;
     } else {
-        loginBtn.textContent = "Log in";
+        productOverlay.className = "open";
     }
-    loggedIn = !loggedIn;
 }
 
 function showProduct(clickEvent) {
