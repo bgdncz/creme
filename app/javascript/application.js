@@ -43,6 +43,7 @@ function showProduct(clickEvent) {
             productOverlay.children[1].src = product.img_url;
             productOverlay.children[2].textContent = product.name;
             productOverlay.children[3].textContent = product.description;
+            productOverlay.querySelector("#reviews").innerHTML = product.reviews.map(review => `<li>${review.content}</li>`).join("");
         });
 }
 
