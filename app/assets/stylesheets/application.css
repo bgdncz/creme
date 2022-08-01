@@ -69,7 +69,7 @@ nav {
 
 #product-overlay {
     background: white;
-    overflow: hidden;
+    overflow: scroll;
     width: 500px;
     height: 0px;
     position: absolute;
@@ -162,3 +162,24 @@ nav {
   .close:after {
     transform: rotate(-45deg);
   }
+
+#review-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+#review-container > div {
+   display: flex;
+   gap: 5px;
+   align-items: center;
+}
+
+#review-container > div > * {
+    margin: 0;
+ }
+
+.profile-pic {
+    height: 40px;
+    width: 40px;
+}

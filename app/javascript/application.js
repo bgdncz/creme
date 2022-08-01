@@ -5,6 +5,7 @@ const loginBtn = document.querySelector("#login-btn");
 const productOverlay = document.querySelector("#product-overlay");
 const closeBtn = document.querySelector(".close");
 const addBtn = document.querySelector("#add-btn");
+const reviewContainer = document.querySelector("#review-container")
 let loggedIn = false;
 
 function createProduct(product) {
@@ -43,6 +44,22 @@ function handleAdd(clickEvent) {
     productOverlay.className = "open";
 }
 
+async function getUser(userId) {
+    const res = await fetch(`/users/${userId}`);
+    const user = await res.json();
+    return user;
+}
+
+function makeReview(review) {
+    getUser(review["user_id"]).then(user => {
+        const reviewDiv = document.createElement("div");
+        reviewDiv.innerHTML = `
+            <img src="${user.profile_img}" class="profile-pic"><p>${review.content}</p>
+        `
+        reviewContainer.appendChild(reviewDiv);
+    });
+}
+
 function showProduct(clickEvent) {
     const productId = this.dataset.productId;
         fetch(`/products/${productId}`).then(res => res.json()).then(product => {
@@ -50,7 +67,8 @@ function showProduct(clickEvent) {
             productOverlay.children[1].src = product.img_url;
             productOverlay.children[2].textContent = product.name;
             productOverlay.children[3].textContent = product.description;
-            productOverlay.querySelector("#reviews").innerHTML = product.reviews.map(review => `<li>${review.content}</li>`).join("");
+            reviewContainer.innerHTML = "";
+            product.reviews.forEach(makeReview);
         });
 }
 
