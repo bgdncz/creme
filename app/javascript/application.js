@@ -4,6 +4,7 @@ const productGrid = document.querySelector("#product-grid");
 const loginBtn = document.querySelector("#login-btn");
 const productOverlay = document.querySelector("#product-overlay");
 const closeBtn = document.querySelector(".close");
+const addBtn = document.querySelector("#add-btn");
 let loggedIn = false;
 
 function createProduct(product) {
@@ -28,12 +29,18 @@ fetch("/products").then(res => res.json()).then(products => {
 });
 
 function handleLogin(clickEvent) {
-    if (loggedIn == false) {
-        loginBtn.textContent = "Add";
+    if (!loggedIn) {
+        loginBtn.style.transition = "none";
+        loginBtn.textContent = "Bogdan";
+        loginBtn.style.mask = "none";
+        loginBtn.style.background = "transparent";
+        addBtn.style.display = "block";
         loggedIn = true;
-    } else {
-        productOverlay.className = "open";
     }
+}
+
+function handleAdd(clickEvent) {
+    productOverlay.className = "open";
 }
 
 function showProduct(clickEvent) {
@@ -52,4 +59,5 @@ function closeOverlay() {
 }
 
 loginBtn.addEventListener("click", handleLogin);
+addBtn.addEventListener("click", handleAdd);
 closeBtn.addEventListener("click", closeOverlay);
