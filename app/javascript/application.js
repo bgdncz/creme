@@ -91,7 +91,8 @@ function handleNewProduct(submitEvent) {
     fetch('/products', {
         method: 'POST',
         body: data
-    });
+    }).then(res => res.json()).then(createProduct);
+    closeOverlay();
 }
 
 function handleImageUpload(event) {
@@ -112,5 +113,3 @@ fileInput.addEventListener("change", handleImageUpload);
 for (const btn of closeBtns) {
     btn.addEventListener("click", closeOverlay);
 }
-
-console.log("ok");
