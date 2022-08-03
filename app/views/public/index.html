@@ -3,14 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/application.css" media="screen">
+        <link rel="stylesheet" href="assets/application.css" media="screen">
         <title>Crème</title>
         <meta charset="UTF-8">
         <meta name="title" content="Crème">
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" type="image/png" href="/favicon.png">
-        <script src="application.js" defer></script>
     </head>
     <body>
         <header>
@@ -23,7 +22,7 @@
         <main>
             <div id="product-grid">
             </div>
-            <div id="product-overlay">
+            <div class="overlay" id="product-overlay">
                 <a class="close"></a>
                 <img/>
                 <h3></h3>
@@ -31,7 +30,27 @@
                 <h3>Reviews:</h3>
                 <div id="review-container">
 
-                </ul>
+                </div>
+            </div>
+            <div class="overlay" id="new-product-overlay">
+                <a class="close"></a>
+                <form id="new-product-form">
+                    <div class="image-input">
+                        <input type="file" id="file" class="hidden-input" accept="image/*">
+                        <label for="file">
+                        </label>
+                    </div>
+                    <input name="name" type="text" placeholder="Enter product name">
+                    <input name="link" type="text" placeholder="Enter product link">
+                    <input name="price" type="number" placeholder="Price">
+                    <textarea placeholder="Product description" name="description"></textarea>
+                    <div class="fancy-input">
+                        <input type="submit" id="submit" class="hidden-input">
+                        <label for="submit">
+                          Submit
+                        </label>
+                    </div>
+                </form>
             </div>
         </main>
     </body>

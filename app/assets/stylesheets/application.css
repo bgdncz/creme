@@ -67,12 +67,12 @@ nav {
     gap: 10px;
 }
 
-#product-overlay {
+.overlay {
     background: white;
     overflow: scroll;
     width: 500px;
     height: 0px;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -88,7 +88,7 @@ nav {
     margin-top: 20px;
 }
 
-#product-overlay > * {
+.overlay > * {
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -102,7 +102,7 @@ nav {
     height: 300px;
     background: white;
     border-radius: 30px;
-    box-shadow: 0 10px 10px lightgray;
+    box-shadow: 0 0px 30px lightgray;
     overflow:hidden;
     display: grid;
     grid-template: 1fr / 1fr;
@@ -138,8 +138,8 @@ nav {
 
 .close {
     position: absolute;
-    right: 32px;
-    top: 32px;
+    right: 0px;
+    top: 20px;
     width: 32px;
     height: 32px;
     opacity: 0.3;
@@ -182,4 +182,100 @@ nav {
 .profile-pic {
     height: 40px;
     width: 40px;
+}
+
+.hidden-input {
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+}
+
+.image-input label:not(.uploaded-image) {
+    display: block;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-color: darkgray;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath d='M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+.uploaded-image {
+    display: block;
+    cursor: pointer;
+    width: 120px;
+    height: 120px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.image-input label:not(.uploaded-image):hover {
+    background-color: #292929;
+}
+
+.fancy-input label {
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 50px;
+    border-radius: 25px;
+    background: linear-gradient(40deg,#ff6ec4,#7873f5);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .2s ease-out;
+  }
+  
+  input:hover + label,
+  input:focus + label {
+    transform: scale(1.02);
+  }
+  
+  /* Adding an outline to the label on focus */
+  input:focus + label {
+    outline: 1px solid #000;
+    outline: -webkit-focus-ring-color auto 2px;
+  }
+
+.overlay form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+input[type=text] {
+    padding:10px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type=number] {
+    padding:10px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    padding:10px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
