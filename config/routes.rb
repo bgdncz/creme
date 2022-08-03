@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/users/random", to: "users#random"
   resources :reviews
   resources :users
   resources :products

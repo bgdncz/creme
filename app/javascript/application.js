@@ -9,7 +9,7 @@ const addBtn = document.querySelector("#add-btn");
 const reviewContainer = document.querySelector("#review-container");
 const newProductForm = document.querySelector("#new-product-form");
 const fileInput = document.querySelector("#file");
-let loggedIn = false;
+let userId = undefined;
 
 function createProduct(product) {
     const productDiv = document.createElement("div");
@@ -33,13 +33,15 @@ fetch("/products").then(res => res.json()).then(products => {
 });
 
 function handleLogin(clickEvent) {
-    if (!loggedIn) {
-        loginBtn.style.transition = "none";
-        loginBtn.textContent = "Bogdan";
-        loginBtn.style.mask = "none";
-        loginBtn.style.background = "transparent";
-        addBtn.style.display = "block";
-        loggedIn = true;
+    if (!userId) {
+        fetch("/users/random").then(res => res.json()).then(user => {
+            loginBtn.style.transition = "none";
+            loginBtn.textContent = user.name;
+            loginBtn.style.mask = "none";
+            loginBtn.style.background = "transparent";
+            addBtn.style.display = "block";
+            userId = user.id;
+        });
     }
 }
 
