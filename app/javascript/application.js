@@ -63,13 +63,22 @@ function makeReview(review) {
     });
 }
 
+function averageRating(product) {
+    if (product.reviews.length == 0) {
+        return "-"
+    } else {
+        return (product.reviews.reduce((acc, r) => acc + r.rating, 0)/product.reviews.length).toFixed(2);
+    }
+}
+
 function showProduct(clickEvent) {
     const productId = this.dataset.productId;
         fetch(`/products/${productId}`).then(res => res.json()).then(product => {
             productOverlay.classList.add("open");
             productOverlay.children[1].src = product.img_url;
             productOverlay.children[2].textContent = product.name;
-            productOverlay.children[3].textContent = product.description;
+            productOverlay.children[3].textContent = `$${product.price}, ⭐️ ${averageRating(product)}`;
+            productOverlay.children[4].textContent = product.description;
             reviewContainer.innerHTML = "";
             product.reviews.forEach(makeReview);
         });
