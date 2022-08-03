@@ -93,6 +93,18 @@ function handleNewProduct(submitEvent) {
         body: data
     }).then(res => res.json()).then(createProduct);
     closeOverlay();
+    clearForm();
+}
+
+function clearForm() {
+    newProductForm.name.value = "";
+    newProductForm.link.value = "";
+    newProductForm.description.value = "";
+    newProductForm.price.value = "";
+    newProductForm.file.value = "";
+    const label = document.querySelector(".image-input label");
+    label.classList.remove("uploaded-image");
+    label.style.backgroundImage = "";
 }
 
 function handleImageUpload(event) {
