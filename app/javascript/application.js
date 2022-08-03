@@ -78,7 +78,8 @@ function showProduct(clickEvent) {
         fetch(`/products/${productId}`).then(res => res.json()).then(product => {
             productOverlay.classList.add("open");
             productOverlay.children[1].src = product.img_url;
-            productOverlay.children[2].textContent = product.name;
+            productOverlay.children[2].childNodes[0].nodeValue = product.name;
+            productOverlay.children[2].childNodes[1].href = product.link;
             productOverlay.children[3].textContent = `$${product.price}, ⭐️ ${averageRating(product)}`;
             productOverlay.children[4].textContent = product.description;
             reviewContainer.innerHTML = "";
