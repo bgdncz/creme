@@ -10,7 +10,7 @@ end
     price = 10.5
     description = Faker::Lorem.words(number: 10).join(" ")
     img_url = Faker::LoremFlickr.image(search_terms: name.split(" "))
-    Product.create(name: name, link: link, price: price, description: description, img_url: img_url)
+    Product.create(name: name, link: link, price: price, description: description, img_url: img_url, recommender: User.all.sample)
 end
 
 User.all.each do |user|

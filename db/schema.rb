@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_01_164517) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_04_123232) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "link"
@@ -19,6 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_164517) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recommender_id"
+    t.index ["recommender_id"], name: "index_products_on_recommender_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -40,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_164517) do
     t.string "profile_img"
   end
 
+  add_foreign_key "products", "users", column: "recommender_id"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
 end
