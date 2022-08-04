@@ -9,6 +9,9 @@ const addBtn = document.querySelector("#add-btn");
 const reviewContainer = document.querySelector("#review-container");
 const newProductForm = document.querySelector("#new-product-form");
 const fileInput = document.querySelector("#file");
+const starRating = document.querySelector("#star-rating");
+const newReviewForm = document.querySelector("#new-review-form");
+const addReviewBtn = document.querySelector("#add-review");
 let userId = undefined;
 
 function createProduct(product) {
@@ -58,10 +61,11 @@ async function getUser(userId) {
 function makeReview(review) {
     getUser(review["user_id"]).then(user => {
         const reviewDiv = document.createElement("div");
+        reviewDiv.className = "review";
         reviewDiv.innerHTML = `
             <img src="${user.profile_img}" class="profile-pic"><p>${review.content}</p>
         `
-        reviewContainer.appendChild(reviewDiv);
+        reviewContainer.insertBefore(reviewDiv, reviewContainer.querySelector("form"));
     });
 }
 
@@ -77,13 +81,15 @@ function showProduct(clickEvent) {
     const productId = this.dataset.productId;
         fetch(`/products/${productId}`).then(res => res.json()).then(product => {
             productOverlay.classList.add("open");
+            productOverlay.dataset.productId = productId;
             productOverlay.querySelector("#product-image").src = product.img_url;
             productOverlay.querySelector("#product-name").childNodes[0].nodeValue = product.name;
             productOverlay.querySelector("#product-name").childNodes[1].href = product.link;
             productOverlay.querySelector("#product-info").textContent = `$${product.price}, ⭐️ ${averageRating(product)}`;
             productOverlay.querySelector("#product-description").textContent = product.description;
             productOverlay.querySelector("#edit").style.display = (product.recommender_id == userId) ? "block" : "none";
-            reviewContainer.innerHTML = "";
+            productOverlay.querySelector("#add-review").style.display = userId ? "block" : "none";
+            reviewContainer.querySelectorAll(".review").forEach(e => e.remove());
             product.reviews.forEach(makeReview);
         });
 }
@@ -139,3 +145,48 @@ fileInput.addEventListener("change", handleImageUpload);
 for (const btn of closeBtns) {
     btn.addEventListener("click", closeOverlay);
 }
+
+function showAddReview(e) {
+    if (this.className == "submit-review") {
+        const productId = productOverlay.dataset.productId;
+        const data = {
+            "product_id": productId,
+            "content": newReviewForm.content.value,
+            "rating": starRating.dataset.rating,
+            "user_id": userId
+        }
+        fetch('/reviews', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(closeOverlay);
+    } else {
+        this.className = "submit-review";
+        newReviewForm.style.display = "flex";
+    }
+}
+
+addReviewBtn.addEventListener("click", showAddReview);
+
+function displayStars(e) {
+    const { x, y } = starRating.getBoundingClientRect();
+    //starRating.style.width = ` px`;
+    const goldPercentage = 100*(e.clientX - x)/180;
+    const grayPercentage = 100 - goldPercentage;
+    starRating.style.setProperty("--gold-percentage", `${goldPercentage}%`);
+    starRating.style.setProperty("--gray-percentage", `${grayPercentage}%`);
+}
+
+starRating.addEventListener("mousemove", displayStars);
+
+function setRating(e) {
+    const { x, y } = starRating.getBoundingClientRect();
+    const stars = 5*(e.clientX - x)/180
+    this.dataset.rating = stars.toFixed(2);
+    this.removeEventListener("mousemove", displayStars);
+    this.className = "set-rating";
+}
+
+starRating.addEventListener("click", setRating);
