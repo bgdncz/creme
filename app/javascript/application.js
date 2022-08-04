@@ -82,6 +82,7 @@ function showProduct(clickEvent) {
             productOverlay.querySelector("#product-name").childNodes[1].href = product.link;
             productOverlay.querySelector("#product-info").textContent = `$${product.price}, ⭐️ ${averageRating(product)}`;
             productOverlay.querySelector("#product-description").textContent = product.description;
+            productOverlay.querySelector(".edit").style.display = (product.recommender_id == userId) ? "block" : "none";
             reviewContainer.innerHTML = "";
             product.reviews.forEach(makeReview);
         });

@@ -1,6 +1,6 @@
 require 'faker'
 
-(1..20).each do |user|
+(1..4).each do |user|
     User.create(name: Faker::Name.name, email: Faker::Internet.email, profile_img: Faker::Avatar.image)
 end
 
