@@ -100,6 +100,7 @@ function handleNewProduct(submitEvent) {
     data.append('description', newProductForm.description.value);
     data.append('price', newProductForm.price.value);
     data.append('img', fileInput.files[0]);
+    data.append('recommender_id', userId);
     fetch('/products', {
         method: 'POST',
         body: data

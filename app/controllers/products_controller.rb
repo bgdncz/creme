@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
     end
 
     def create
-        product = Product.create(name: params[:name], link: params[:link], description: params[:description], img_url: write_img(params[:img]), price: params[:price])
+        product = Product.create(name: params[:name], link: params[:link], description: params[:description], img_url: write_img(params[:img]), price: params[:price], recommender_id: params[:recommender_id])
         render json: product, include: "reviews"
     end
 end
