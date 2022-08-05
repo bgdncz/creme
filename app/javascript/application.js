@@ -12,6 +12,7 @@ const fileInput = document.querySelector("#file");
 const starRating = document.querySelector("#star-rating");
 const newReviewForm = document.querySelector("#new-review-form");
 const addReviewBtn = document.querySelector("#add-review");
+const editProductBtn = productOverlay.querySelector("#edit");
 let userId = undefined;
 
 function createProduct(product) {
@@ -48,7 +49,7 @@ function handleLogin(clickEvent) {
     }
 }
 
-function handleAdd(clickEvent) {
+function handleAdd() {
     newProductOverlay.classList.add("open");
 }
 
@@ -197,3 +198,44 @@ function setRating(e) {
 }
 
 starRating.addEventListener("click", setRating);
+
+function updateProduct(submitEvent) {
+    submitEvent.preventDefault();
+    var data = new FormData();
+    const productId = productOverlay.dataset.productId;
+    data.append('name', newProductForm.name.value);
+    data.append('link', newProductForm.link.value);
+    data.append('description', newProductForm.description.value);
+    data.append('price', newProductForm.price.value);
+    if (fileInput.files[0]) data.append('img', fileInput.files[0]);
+    fetch(`/products/${productId}`, {
+        method: 'PATCH',
+        body: data
+    }).then(res => res.json()).then(product => {
+        closeOverlay();
+        clearForm();
+        document.querySelector(`.product[data-product-id="${product.id}"]`).remove();
+        createProduct(product);
+        newProductForm.removeEventListener("submit", updateProduct);
+        newProductForm.addEventListener("submit", handleNewProduct);
+    });
+}
+
+function editProduct() {
+    const productId = productOverlay.dataset.productId;
+    fetch(`/products/${productId}`).then(res => res.json()).then(product => {
+        newProductForm.name.value = product.name;
+        newProductForm.link.value = product.link;
+        newProductForm.description.value = product.description;
+        newProductForm.price.value = product.price;
+        const label = document.querySelector(".image-input label");
+        label.classList.add("uploaded-image");
+        label.style.backgroundImage = 'url(' + product.img_url + ')';
+        newProductForm.removeEventListener("submit", handleNewProduct);
+        newProductForm.addEventListener("submit", updateProduct);
+        closeOverlay();
+        handleAdd();
+    });
+}
+
+editProductBtn.addEventListener("click", editProduct);

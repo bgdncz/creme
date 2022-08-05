@@ -27,4 +27,13 @@ class ProductsController < ApplicationController
         product = Product.create(name: params[:name], link: params[:link], description: params[:description], img_url: write_img(params[:img]), price: params[:price], recommender_id: params[:recommender_id])
         render json: product, include: "reviews"
     end
+
+    def update
+        product = Product.find(params[:id])
+        product.update(name: params[:name], link: params[:link], description: params[:description], price: params[:price])
+        if params[:img]
+            product.update(img_url: write_img(params[:img]))
+        end
+        render json: product
+    end
 end
