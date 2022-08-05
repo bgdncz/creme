@@ -83,7 +83,8 @@ nav {
 
 #product-overlay img {
     display: block;
-    height: 40%;
+    max-height: 40%;
+    max-width: 80%;
     margin: auto;
     margin-top: 20px;
 }
@@ -101,7 +102,7 @@ nav {
     width: 300px;
     height: 300px;
     background: white;
-    border-radius: 30px;
+    border-radius: 20px;
     box-shadow: 0 0px 30px lightgray;
     overflow:hidden;
     display: grid;
@@ -116,7 +117,11 @@ nav {
 }
 
 .product img {
-    height: 300px;
+    height: auto;
+    width: auto;
+    max-height: 300px;
+    max-width: 300px;
+    align-self: center;
 }
 
 .extra-info {

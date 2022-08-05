@@ -161,7 +161,14 @@ function showAddReview(e) {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(closeOverlay);
+        }).then(_ => {
+            addReviewBtn.className = "";
+            newReviewForm.style.display = "none";
+            starRating.addEventListener("mousemove", displayStars);
+            newReviewForm.content.value = "";
+            starRating.className = "";
+            closeOverlay();
+        });
     } else {
         this.className = "submit-review";
         newReviewForm.style.display = "flex";
@@ -184,7 +191,7 @@ starRating.addEventListener("mousemove", displayStars);
 function setRating(e) {
     const { x, y } = starRating.getBoundingClientRect();
     const stars = 5*(e.clientX - x)/180
-    this.dataset.rating = stars.toFixed(2);
+    this.dataset.rating = stars;
     this.removeEventListener("mousemove", displayStars);
     this.className = "set-rating";
 }
