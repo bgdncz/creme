@@ -153,7 +153,7 @@ function showAddReview(e) {
         const data = {
             "product_id": productId,
             "content": newReviewForm.content.value,
-            "rating": starRating.dataset.rating,
+            "rating": Math.round(starRating.dataset.rating),
             "user_id": userId
         }
         fetch('/reviews', {
