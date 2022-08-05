@@ -63,7 +63,7 @@ function makeReview(review) {
         const reviewDiv = document.createElement("div");
         reviewDiv.className = "review";
         reviewDiv.innerHTML = `
-            <img src="${user.profile_img}" class="profile-pic"><p>${review.content}</p>
+            <img src="${user.profile_img}" class="profile-pic"><strong>${user.name}</strong><p>${review.content}</p>
         `
         reviewContainer.insertBefore(reviewDiv, reviewContainer.querySelector("form"));
     });
